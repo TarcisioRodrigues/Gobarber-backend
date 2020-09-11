@@ -45,8 +45,11 @@ async update(req,res){
     oldPassword:Yup.string().min(6),
     password:Yup.string().min(6).when('oldPassword',(oldPassword,field)=>
     oldPassword ? field.required():field
-    
+    ),
+    confirmPassword:Yup.string().equals.when('password',(password,field)=>
+    password.res.status?field.required().oneOf([Yup.ref('password')]):field
     )
+
   });
   if(!(await schema.isValid(req.body))){
     return res.status(400).json({error:'Validation fails'});

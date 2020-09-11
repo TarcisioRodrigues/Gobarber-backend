@@ -1,9 +1,18 @@
 //Sessão para o usuario
+import * as Yup from 'yup';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
 import authConfig from '../../config/auth';
 class SessionController{
   async store(req,res){
+      //Validação de entrada de dados
+    const schema=Yup.object().shape({
+      email:Yup.string()
+      .email()
+      .required(),
+      password:Yup.string()
+      .required()
+    });
     const{email,password}=req.body;
     //Verificar o se pessoa ta usando um email que não existe no banco
     const user=await User.findOne({where:{email}});
