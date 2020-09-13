@@ -25,6 +25,10 @@ class User extends Model{
     });
     return this;
   }
+  //Metodo estatico que faz relacionamentos
+  static associate(models){
+    this.belongsTo(models.File,{foreignKey:'avatar_id'})
+  }
   //Metodo para checar a senha 
   checkPassword(password){
     return bcrypt.compare(password,this.password_hash);
