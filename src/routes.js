@@ -36,4 +36,5 @@ routes.post('/files',upload.single('file'),FileController.store);
 routes.get('/schedule',ScheduleController.index);
 //Notifications
 routes.get('/notification',NotificationController.index)
+routes.put('/notification/:id',NotificationController.update)
 export default routes;
