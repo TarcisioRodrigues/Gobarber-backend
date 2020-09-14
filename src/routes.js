@@ -27,6 +27,7 @@ routes.get('/providers',ProviderController.index);
 //Appoitments 
 routes.post('/appoitments',AppoitmentsController.store);
 routes.get('/appoitments',AppoitmentsController.index);
+routes.delete('/appoitments/:id',AppoitmentsController.delete);
 
 //Session
 routes.post('/sessions' ,authMiddleware,SessionController.store);
