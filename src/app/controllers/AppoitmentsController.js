@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import {startOfHour,parseISO,isBefore} from 'date-fns';
-import Appoitments from '../models/Appoitments';
+import Appoitments from '../models/Appointments';
 import User from '../models/User';
 import File from '../models/File';
 //Controller para fazer agendamentos

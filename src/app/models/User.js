@@ -28,7 +28,7 @@ class User extends Model{
   //Metodo estatico que faz relacionamentos
   static associate(models){
     //as :passando um codinome para a chave estranjeira
-    this.belongsTo(models.File,{foreignKey:'avatar_id',as:'avatar'})
+    this.belongsTo(models.File,{foreignKey:'avatar_id',as:'avatar'});
   }
   //Metodo para checar a senha 
   checkPassword(password){

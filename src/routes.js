@@ -8,6 +8,7 @@ import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import ProviderController from './app/controllers/ProviderController';
 import AppoitmentsController from './app/controllers/AppoitmentsController';
+import ScheduleController from './app/controllers/ScheduleController';
 
 import authMiddleware from './app/middlewares/auth';
 //Declarando as variáveis
@@ -30,6 +31,7 @@ routes.get('/appoitments',AppoitmentsController.index);
 routes.post('/sessions' ,authMiddleware,SessionController.store);
 //Upload
 routes.post('/files',upload.single('file'),FileController.store);
-
+//Schedule
+routes.get('/schedule',ScheduleController.index);
 
 export default routes;

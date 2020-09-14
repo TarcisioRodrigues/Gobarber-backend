@@ -1,7 +1,7 @@
 import Sequelize, {Model} from 'sequelize';
 import bcrypt from 'bcryptjs';
 //Models Files
-class Files extends Model{
+class File extends Model{
   static init(sequelize){
     super.init(
       {
@@ -23,4 +23,4 @@ class Files extends Model{
   }
  
 }
-export default Files;
+export default File;
