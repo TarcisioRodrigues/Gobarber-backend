@@ -9,6 +9,7 @@ import FileController from './app/controllers/FileController';
 import ProviderController from './app/controllers/ProviderController';
 import AppoitmentsController from './app/controllers/AppoitmentsController';
 import ScheduleController from './app/controllers/ScheduleController';
+import NotificationController from './app/controllers/NotificationController';
 
 import authMiddleware from './app/middlewares/auth';
 //Declarando as variáveis
@@ -33,5 +34,6 @@ routes.post('/sessions' ,authMiddleware,SessionController.store);
 routes.post('/files',upload.single('file'),FileController.store);
 //Schedule
 routes.get('/schedule',ScheduleController.index);
-
+//Notifications
+routes.get('/notification',NotificationController.index)
 export default routes;
