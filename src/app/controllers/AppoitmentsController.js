@@ -7,9 +7,13 @@ import File from '../models/File';
 class AppoitmentsController{
 
   async index (req,res){
+    //Paginação
+    const {page=1}=req.query;
     const appoitments=await Appoitments.findAll({
       where:{user_id:req.userId,canceled_at:null},
       //Comando para ordena as listagens
+      limit:20,
+      offset:(page-1)*20,
       order:['date'],
       include:[
         {
