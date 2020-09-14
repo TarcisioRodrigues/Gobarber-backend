@@ -24,6 +24,8 @@ routes.use(authMiddleware);
 routes.get('/providers',ProviderController.index);
 //Appoitments 
 routes.post('/appoitments',AppoitmentsController.store);
+routes.get('/appoitments',AppoitmentsController.index);
+
 //Session
 routes.post('/sessions' ,authMiddleware,SessionController.store);
 //Upload

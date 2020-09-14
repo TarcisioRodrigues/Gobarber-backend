@@ -1,8 +1,33 @@
 import * as Yup from 'yup';
+import {startOfHour,parseISO,isBefore} from 'date-fns';
 import Appoitments from '../models/Appoitments';
 import User from '../models/User';
+import File from '../models/File';
 //Controller para fazer agendamentos
 class AppoitmentsController{
+
+  async index (req,res){
+    const appoitments=await Appoitments.findAll({
+      where:{user_id:req.userId,canceled_at:null},
+      //Comando para ordena as listagens
+      order:['date'],
+      include:[
+        {
+          models:User,
+          as:'provider',
+          attributes:['id','name'],
+          include:[
+            {
+              model:File,
+              as:'avatar',
+              attributes:['id','path','url']
+            }
+          ]
+        }
+      ]
+    });
+    return res.json(appoitments);
+  }
  async store (req,res){
   //Validando o agendamento 
   const schema=Yup.object().shape({
@@ -22,10 +47,26 @@ class AppoitmentsController{
    if(!isProvider){
      return res.status(401).json({error:'You can only create appoitments with providers'})
    }
+   //Validando a data de agendamento
+   const hourStart=startOfHour(parseISO(date));
+   if(isBefore(hourStart,new Date())){
+     return res.status(400).json({error:'Past dates are not permitted'});
+   }
+   //Checando se não tem agendamento marcado 
+   const checkAvailabity=await Appoitments.findOne({
+     where:{
+       provider_id,
+       cancele_at:null,
+       date:hourStart,
+     },
+     if(checkAvailabity){
+      return res.status(400).json({error:'Appoitment date is not availiable'});
+     }
+   })
    const appoitment=await Appoitments.create({
      user_id:req.userId,
      provider_id:req.providerId,
-     date,
+     date:hourStart,
    })
    return res.json(appoitments)
   }

@@ -385,6 +385,11 @@ d@1, d@^1.0.1:
     es5-ext "^0.10.50"
     type "^1.0.1"
 
+date@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/date/-/date-1.0.2.tgz#9f1503d6519843d94866fc79a91e9be88dcb4776"
+  integrity sha1-nxUD1lGYQ9lIZvx5qR6b6I3LR3Y=
+
 debug@2.6.9, debug@^2.2.0:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -640,6 +645,11 @@ fn-name@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/fn-name/-/fn-name-3.0.0.tgz#0596707f635929634d791f452309ab41558e3c5c"
   integrity sha512-eNMNr5exLoavuAMhIUVsOKF79SWd/zG104ef6sxBTSw+cZc6BXdQXDvYcGvp0VbxVVSp1XDUNoz7mg1xMtSznA==
+
+fns@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fns/-/fns-1.0.0.tgz#70c2b27d8f4e291ef70f70ae74e2922190870104"
+  integrity sha1-cMKyfY9OKR73D3CudOKSIZCHAQQ=
 
 forwarded@~0.1.2:
   version "0.1.2"
