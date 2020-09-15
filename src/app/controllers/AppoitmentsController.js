@@ -56,6 +56,11 @@ class AppoitmentsController{
    if(!isProvider){
      return res.status(401).json({error:'You can only create appoitments with providers'})
    }
+   if (isProvider.id === req.userId) {
+    return res.status(401).json({
+      error: 'Não é permitido agendar um horário pra você mesmo',
+    });
+  }
    //Validando a data de agendamento
    const hourStart=startOfHour(parseISO(date));
    if(isBefore(hourStart,new Date())){
@@ -96,6 +101,11 @@ async delete(req,res){
      { model :User,
       as:'provider',
       attributes:['name','email'],
+    },
+    {
+      model:User,
+      as:'user',
+      attributes:['name'],
     }
     ]
   });
@@ -114,10 +124,19 @@ async delete(req,res){
   }
   appoitment.cancele_at=new Date()
   await appoitment.save();
+  //Enviando email de cancelamento 
   await Mail.sendMail({
     to:`${appoitment.provider.name}<${appoitment.provider.email}>`,
     subject:'Agendamento cancelado',
-    text:'Voce tem um novo cancelamento',
+    template:'cancellation',
+    context:{
+      provider:appoitment.provider.name,
+      user:appoitment.user.name,
+      date:format(appoitment.date,
+        "dia 'dd' ' de'  MMMM', às' H:mm'h" ,
+        {locale:pt}
+        )
+    }
   })
   return res.json(appoitment);
 }
