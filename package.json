@@ -21,7 +21,9 @@
     "yup": "^0.29.3"
   },
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "nodemon src/server.js",
+    "queue":"nodemon src/queue.js"
+
   },
   "devDependencies": {
     "nodemon": "^2.0.4",

@@ -5,6 +5,7 @@ import Appoitments from '../models/Appointments';
 import User from '../models/User';
 import File from '../models/File';
 import Notification from '../schemas/Notification';
+import CancellationMail from '../jobs/CancellationMail';
 import Mail from '../../lib/Mail';
 import app from '../../app';
 
@@ -124,20 +125,11 @@ async delete(req,res){
   }
   appoitment.cancele_at=new Date()
   await appoitment.save();
-  //Enviando email de cancelamento 
-  await Mail.sendMail({
-    to:`${appoitment.provider.name}<${appoitment.provider.email}>`,
-    subject:'Agendamento cancelado',
-    template:'cancellation',
-    context:{
-      provider:appoitment.provider.name,
-      user:appoitment.user.name,
-      date:format(appoitment.date,
-        "dia 'dd' ' de'  MMMM', às' H:mm'h" ,
-        {locale:pt}
-        )
-    }
+  //Enviando email de cancelamento e criação de uma fila replicavel
+  await Queue.add(CancellationMail.key,{
+    appoitment,
   })
+  
   return res.json(appoitment);
 }
 }
