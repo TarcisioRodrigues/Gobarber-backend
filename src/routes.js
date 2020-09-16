@@ -10,6 +10,7 @@ import ProviderController from './app/controllers/ProviderController';
 import AppoitmentsController from './app/controllers/AppoitmentsController';
 import ScheduleController from './app/controllers/ScheduleController';
 import NotificationController from './app/controllers/NotificationController';
+import AvailableController from './app/controllers/AvailableController';
 
 import authMiddleware from './app/middlewares/auth';
 //Declarando as variáveis
@@ -24,6 +25,8 @@ routes.put('/users',UserController.update)
 routes.use(authMiddleware);
 //Providers
 routes.get('/providers',ProviderController.index);
+//Available
+routes.get('/providers:/providerId/available',AvailableController.index);
 //Appoitments 
 routes.post('/appoitments',AppoitmentsController.store);
 routes.get('/appoitments',AppoitmentsController.index);

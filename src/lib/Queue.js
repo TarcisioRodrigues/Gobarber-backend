@@ -47,7 +47,7 @@ class Queue {
       bee.on('failed', this.handleFailure).process(handle);
     });
   }
-
+//Monitorando falhas  de fila
   handleFailure(job, err) {
     console.log(`queue ${job.queue.name}: failed`, err);
   }
