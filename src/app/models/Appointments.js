@@ -1,5 +1,6 @@
 import Sequelize, {Model} from 'sequelize';
 import bcrypt from 'bcryptjs';
+import { isBefore, subHours } from 'date-fns';
 //Models Appoitments
 class Appoitments extends Model{
   static init(sequelize){
@@ -7,7 +8,20 @@ class Appoitments extends Model{
       {
       date: Sequelize.STRING,
       canceled_at: Sequelize.STRING,
+      past:{
+        type:Sequelize.VIRTUAL,
+        get(){
+          return isBefore(this.date,new Date())
+        }
       },
+      cancelable:{
+        type:sequelize.VIRTUAL,
+        get(){
+          return isBefore(new Date(),subHours(this.date,2));
+        }
+      },
+      },
+     
     {
       sequelize,
     }
