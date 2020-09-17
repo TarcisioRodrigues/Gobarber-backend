@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import 'express-async-errors';
 import express from'express';
 import path, { dirname } from'path';
@@ -30,9 +32,13 @@ class App{
   //Função pra tratamento de erros e execessões
   exceptionHandle(){
     this.server.use(async(error,req,res,next)=>{
+      if(process.env.NODE_ENV){
       const errors=await new Youch(err,req).toJSON();
       return res.status(500).json(errors);
+    }
+      return res.status(500).json({error:'Internal server error'});
     })
+    
   }
 }
 export default new App().server;
